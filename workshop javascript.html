@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My JavaScript Workshop - Code Editor</title>
+    <style>
+        /* --- CSS: ส่วนตกแต่งหน้าจอ --- */
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1e1e1e;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        header {
+            padding: 15px;
+            background: #252526;
+            text-align: center;
+            border-bottom: 2px solid #333;
+        }
+
+        .container {
+            display: flex;
+            flex: 1;
+            gap: 10px;
+            padding: 10px;
+        }
+
+        .input-side {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .output-side {
+            flex: 1;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        textarea {
+            width: 100%;
+            height: 33%;
+            background: #2d2d2d;
+            color: #9cdcfe;
+            border: 1px solid #444;
+            padding: 15px;
+            font-family: 'Courier New', Courier, monospace;
+            resize: none;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        textarea:focus { border-color: #007acc; }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .label {
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: -5px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h2>🚀 Workshop: Real-time Code Editor</h2>
+    <p style="font-size: 0.9rem; color: #aaa;">ลองพิมพ์โค้ดด้านซ้าย แล้วดูผลลัพธ์ด้านขวาได้เลย!</p>
+</header>
+
+<div class="container">
+    <div class="input-side">
+        <div class="label">HTML</div>
+        <textarea id="html-code" spellcheck="false" placeholder="<h1>สวัสดีชาวโลก</h1>"></textarea>
+        
+        <div class="label">CSS</div>
+        <textarea id="css-code" spellcheck="false" placeholder="h1 { color: dodgerblue; text-align: center; }"></textarea>
+        
+        <div class="label">JavaScript</div>
+        <textarea id="js-code" spellcheck="false" placeholder="console.log('Hello!');"></textarea>
+    </div>
+
+    <div class="output-side">
+        <iframe id="output"></iframe>
+    </div>
+</div>
+
+<script>
+    /* --- JavaScript: ส่วนควบคุมการทำงาน --- */
+    const htmlInput = document.getElementById("html-code");
+    const cssInput = document.getElementById("css-code");
+    const jsInput = document.getElementById("js-code");
+    const output = document.getElementById("output");
+
+    function update() {
+        const outputDoc = output.contentDocument || output.contentWindow.document;
+        
+        // รวบรวมโค้ดทั้งหมด
+        const html = htmlInput.value;
+        const css = `<style>${cssInput.value}</style>`;
+        const js = `<script>${jsInput.value}<\/script>`;
+
+        // แสดงผลใน Iframe
+        outputDoc.open();
+        outputDoc.write(html + css + js);
+        outputDoc.close();
+    }
+
+    // ใส่ Event Listener ให้ทำงานทุกครั้งที่หยุดพิมพ์
+    [htmlInput, cssInput, jsInput].forEach(el => {
+        el.addEventListener('keyup', update);
+    });
+
+    // กำหนดค่าเริ่มต้นเพื่อให้เห็นภาพ
+    htmlInput.value = "<h1>Hello JavaScript!</h1>\n<p>ลองเปลี่ยนสีข้อความในช่อง CSS ดูนะ</p>";
+    cssInput.value = "body { \n  background: #f0f0f0; \n  display: flex; \n  flex-direction: column;\n  align-items: center; \n  padding-top: 50px;\n  font-family: sans-serif;\n}\nh1 { color: #ff4757; }";
+    
+    // รันครั้งแรกตอนโหลดหน้าเว็บ
+    update();
+</script>
+
+</body>
+</html>
