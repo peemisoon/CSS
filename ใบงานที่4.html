@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ใบงานที่ 4 - CSS Text Animation</title>
+    <style>
+        /* ตั้งค่าพื้นฐานและการจัดวาง */
+        body {
+            background-color: #0f172a; /* พื้นหลังสีเข้มดูแพง */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Sarabun', sans-serif;
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Animation สำหรับชื่อ */
+        .name-text {
+            font-size: 2.2rem;
+            margin: 0;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
+            color: #38bdf8; /* สีฟ้าสว่าง */
+        }
+
+        /* Animation สำหรับ Soft Skill */
+        .skill-text {
+            font-size: 1.4rem;
+            margin-top: 15px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
+            animation-delay: 0.5s; /* ขึ้นตามมาทีหลัง */
+            color: #94a3b8;
+        }
+
+        /* เน้นคำว่า Teamwork */
+        .highlight {
+            color: #fbbf24; /* สีทอง/เหลือง เพื่อความโดดเด่น */
+            font-weight: bold;
+        }
+
+        /* Keyframes การเลื่อนขึ้นและจางปรากฏ */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ลูกเล่นเส้นขีดตกแต่งด้านล่าง */
+        .border-bottom {
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #38bdf8, #fbbf24);
+            margin-top: 20px;
+            animation: expandWidth 1s ease forwards 1.2s;
+        }
+
+        @keyframes expandWidth {
+            to { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1 class="name-text">ชื่อ-นามสกุล: ไอศูรย์ อนุศักดิ์ชัยกุล</h1>
+        <p class="skill-text">Soft Skill: <span class="highlight">Teamwork (การทำงานร่วมกับผู้อื่น)</span></p>
+        <div class="border-bottom"></div>
+    </div>
+
+</body>
+</html>
